@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Emerson Patrick Kiondo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Background Video */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Content Container */
+    .content-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.5);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .gallery-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .gallery-item-content {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .gallery-item-content h3 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+    }
+
+    .gallery-item-content p {
+      font-size: 0.9rem;
+      margin: 0 0 10px;
+      color: #ddd;
+    }
+
+    .gallery-item-content .read-more {
+      color: #007bff;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .gallery-item-content .full-description {
+      display: none; /* Initially hidden */
+      font-size: 0.9rem;
+      color: #ddd;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="assets/videos/tech.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Content Container -->
+  <div class="content-container">
+    <header>
+      <div class="container">
+        <h1>Emerson Patrick Kiondo</h1>
+        <p>Full Stack Developer</p>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section class="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <!-- Gallery Item 1 -->
+        <div class="gallery-item">
+          <img src="assets/images/photo1.jpeg" alt="Gallery Image 1">
+          <div class="gallery-item-content">
+            <h3>TEHAMA AWARDS 2025 CEREMONY</h3>
+            <p>Receiving the Tehama Awards 2025, Second Runner as Young Programmer <span class="read-more">Read More</span></p>
+            <div class="full-description">
+              In this proud and memorable moment, I stand on stage receiving the prestigious TEHAMA AWARD as the Second Runner-up in the Young Programmer category. The stage is illuminated with vibrant blue lights, reflecting the essence of technology and innovation.
+
+              I am honored to receive this award from Hon. Eng. Mhandisi Maryprisca Mahundi, the Deputy Minister of Communication and Information Technology, who gracefully hands me the trophy. Standing to her right is Hon. Jerry Silaa, the Minister of Communication and Information Technology, along with other distinguished leaders and officials in the ICT sector.
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 2 -->
+        <div class="gallery-item">
+          <img src="assets/images/photo2.jpg" alt="Gallery Image 2">
+          <div class="gallery-item-content">
+            <h3>Award before the Altar</h3>
+            <p>Brought the Award before the God and the Altar, And my, Pastor Lewis Hizza Prayed for me. <span class="read-more">Read More</span></p>
+            <div class="full-description">
+              Collaboration is key to success. This project involved teamwork, brainstorming, and problem-solving to deliver a high-quality product.
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 3 -->
+        <div class="gallery-item">
+          <img src="assets/images/photo4.jpg" alt="Gallery Image 3">
+          <div class="gallery-item-content">
+            <h3>Moment of Blessings</h3>
+            <p>Receiving the Blessings before the Altar with my MBLC MEDIA team mates. <span class="read-more">Read More</span></p>
+            <div class="full-description">
+              As we stood before the altar, heads bowed and hearts open, we received blessings in a moment of deep gratitude and reflection. To my left, the man with glasses is Mr. Exaud Kimboi, CEO of Dynatech Solution and my mentor—one of the most humble and inspiring individuals I know. On my right, the two people beside me—a young woman and a man—are my teammates from MBLC MEDIA, both incredibly talented and wonderful to work with. This moment was filled with faith, unity, and the strength of shared purpose.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Debugging: Check if JavaScript is running
+    console.log("Read More clicked!");
+
+    // Add "Read More" functionality
+    document.querySelectorAll('.read-more').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default behavior (if any)
+        const fullDescription = this.parentElement.querySelector('.full-description');
+        if (fullDescription.style.display === 'none' || !fullDescription.style.display) {
+          fullDescription.style.display = 'block';
+          this.textContent = 'Read Less';
+        } else {
+          fullDescription.style.display = 'none';
+          this.textContent = 'Read More';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
