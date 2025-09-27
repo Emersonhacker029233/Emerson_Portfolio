@@ -48,7 +48,7 @@ Hi, I am Emerson Patrick, a software developer specializing in advanced technolo
 <section id="projects">
 <h2>Projects</h2>
 <div class="project-list" id="project-list">
-<!-- Projects will be dynamically fetched from GitHub -->
+<!-- Projects will be dynamically loaded -->
 </div>
 </section>
 
@@ -70,40 +70,49 @@ function scrollAnimation() {
   const triggerBottom = window.innerHeight * 0.85;
   animatedElements.forEach(el => {
     const boxTop = el.getBoundingClientRect().top;
-    if(boxTop < triggerBottom) {
-      el.classList.add('fade-in');
-    }
+    if(boxTop < triggerBottom) el.classList.add('fade-in');
   });
 }
 window.addEventListener('scroll', scrollAnimation);
 window.addEventListener('load', scrollAnimation);
 
-// Fetch GitHub projects dynamically
-const githubUser = 'Emersonhacker029233';
-const projectList = document.getElementById('project-list');
+// Hardcoded fallback projects
+const fallbackProjects = [
+  { name: "Portfolio Website", description: "A personal portfolio showcasing my skills and projects using HTML, CSS, JS.", url: "https://emersonhacker029233.github.io/Emerson_Portfolio/" },
+  { name: "Vision Care Foundation", description: "Full website for a foundation, with donation features built using HTML, CSS, JS.", url: "https://github.com/Emersonhacker029233/visioncarefoundation.org" },
+  { name: "HomeManage System", description: "Tenant management system built with Laravel, JS, and MySQL for web and mobile.", url: "https://github.com/Emersonhacker029233/HomeManage" },
+  { name: "ENTITYSKIN E-commerce", description: "Skincare e-commerce site built with open-source frameworks, hosted on GitHub.", url: "https://github.com/Emersonhacker029233/entityskin" }
+];
 
+// Render projects
+function renderProjects(projects) {
+  const projectList = document.getElementById('project-list');
+  projectList.innerHTML = '';
+  projects.forEach(repo => {
+    const project = document.createElement('div');
+    project.classList.add('project');
+    const description = repo.description || repo.desc || 'No description available.';
+    const url = repo.html_url || repo.url;
+    project.innerHTML = `<h3>${repo.name}</h3><p>${description}</p><a href="${url}" target="_blank">View Repository</a>`;
+    projectList.appendChild(project);
+  });
+}
+
+// Load projects dynamically with fallback
 async function loadProjects() {
   try {
-    const response = await fetch(`https://api.github.com/users/${githubUser}/repos?per_page=100`);
+    const response = await fetch(`https://api.github.com/users/Emersonhacker029233/repos?per_page=100`);
     const repos = await response.json();
-
-    // Sort repos: heavy projects first based on stars + forks
-    repos.sort((a, b) => (b.stargazers_count + b.forks_count) - (a.stargazers_count + a.forks_count));
-
-    repos.forEach(repo => {
-      const project = document.createElement('div');
-      project.classList.add('project');
-      const description = repo.description ? repo.description : 'No description available.';
-      project.innerHTML = `
-        <h3>${repo.name}</h3>
-        <p>${description}</p>
-        <a href="${repo.html_url}" target="_blank">View Repository</a>
-      `;
-      projectList.appendChild(project);
-    });
+    if(Array.isArray(repos) && repos.length > 0) {
+      // Sort heavy projects first (stars + forks)
+      repos.sort((a,b) => (b.stargazers_count + b.forks_count) - (a.stargazers_count + a.forks_count));
+      renderProjects(repos);
+    } else {
+      renderProjects(fallbackProjects);
+    }
   } catch (error) {
-    console.error('Error fetching repositories:', error);
-    projectList.innerHTML = '<p>Failed to load projects. Please check your internet connection or GitHub username.</p>';
+    console.warn('GitHub API fetch failed, using fallback projects.', error);
+    renderProjects(fallbackProjects);
   }
 }
 
