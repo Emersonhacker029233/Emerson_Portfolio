@@ -14,7 +14,7 @@ header nav a:hover {color:#61dafb;}
 section {padding:120px 20px; max-width:1000px; margin:auto;}
 #hero {background:#282c34; color:#fff; text-align:center; padding-top:180px; padding-bottom:100px; position:relative;}
 #hero h1 {font-size:3rem; margin-bottom:20px; opacity:0; transform:translateY(50px); transition:all 1s ease;}
-#hero p {font-size:1.2rem; opacity:0; transform:translateY(50px); transition:all 1s ease 0.3s;}
+#hero p, #hero .intro {font-size:1.2rem; opacity:0; transform:translateY(50px); transition:all 1s ease 0.3s;}
 #projects {background:#fff;}
 #projects h2 {text-align:center; margin-bottom:50px; font-size:2.5rem; opacity:0; transform:translateY(50px); transition:all 1s ease;}
 .project-list {display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:30px;}
@@ -42,12 +42,26 @@ footer {text-align:center; padding:20px; background:#1a1a1a; color:#fff;}
 <section id="hero">
 <h1>Emerson Patrick Kiondo</h1>
 <p>Software Developer</p>
+<p class="intro">
+Hi, I am Emerson Patrick, a software developer specializing in advanced technologies like Python, JavaScript, and Laravel. I also work with HTML, CSS, PHP, and other cost-effective tools to deliver robust, scalable, and maintainable solutions. My focus is building clean, professional, and efficient applications for web and software projects.
+</p>
 </section>
 
 <section id="projects">
 <h2>Projects</h2>
 <div class="project-list" id="project-list">
-<!-- Projects will load here -->
+<!-- Hardcoded projects (replace with actual projects if fetch fails) -->
+<div class="project">
+<h3>Portfolio Website</h3>
+<p>A personal developer portfolio showcasing my projects and skills using HTML, CSS, and JavaScript.</p>
+<a href="https://emersonhacker029233.github.io/Emerson_Portfolio/" target="_blank">View Repository</a>
+</div>
+<div class="project">
+<h3>Vision Care Foundation</h3>
+<p>A full website project for a foundation, built with HTML, CSS, and JavaScript, featuring donation integration.</p>
+<a href="https://github.com/Emersonhacker029233/visioncarefoundation.org" target="_blank">View Repository</a>
+</div>
+<!-- Add more project cards here -->
 </div>
 </section>
 
@@ -64,7 +78,7 @@ footer {text-align:center; padding:20px; background:#1a1a1a; color:#fff;}
 
 <script>
 // Scroll animation
-const animatedElements = document.querySelectorAll('#hero h1, #hero p, #projects h2, .project, #contact h2');
+const animatedElements = document.querySelectorAll('#hero h1, #hero p, #hero .intro, #projects h2, .project, #contact h2');
 function scrollAnimation() {
   const triggerBottom = window.innerHeight * 0.85;
   animatedElements.forEach(el => {
@@ -77,14 +91,16 @@ function scrollAnimation() {
 window.addEventListener('scroll', scrollAnimation);
 window.addEventListener('load', scrollAnimation);
 
-// Fetch GitHub projects
+// Optional: Fetch GitHub projects dynamically (may fail if CORS issues)
+// Using a hardcoded fallback ensures projects always show
+/*
 const githubUser = 'Emersonhacker029233';
 const projectList = document.getElementById('project-list');
 
 fetch(`https://api.github.com/users/${githubUser}/repos`)
 .then(response => response.json())
 .then(data => {
-    // Sort repos by last updated
+    projectList.innerHTML = ''; // clear fallback
     data.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
     data.forEach(repo => {
         const project = document.createElement('div');
@@ -98,12 +114,7 @@ fetch(`https://api.github.com/users/${githubUser}/repos`)
     });
 })
 .catch(err => console.error(err));
-
-// Smooth fade-in for hero on load
-window.addEventListener('load', () => {
-  document.querySelector('#hero h1').classList.add('fade-in');
-  document.querySelector('#hero p').classList.add('fade-in');
-});
+*/
 </script>
 
 </body>
