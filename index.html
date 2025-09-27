@@ -24,8 +24,6 @@ section {padding:120px 20px; max-width:1000px; margin:auto;}
 #contact {background:#282c34; color:#fff; text-align:center;}
 #contact h2 {margin-bottom:30px; opacity:0; transform:translateY(50px); transition:all 1s ease;}
 footer {text-align:center; padding:20px; background:#1a1a1a; color:#fff;}
-
-/* Scroll animation classes */
 .fade-in {opacity:1 !important; transform:translateY(0) !important;}
 </style>
 </head>
@@ -50,18 +48,7 @@ Hi, I am Emerson Patrick, a software developer specializing in advanced technolo
 <section id="projects">
 <h2>Projects</h2>
 <div class="project-list" id="project-list">
-<!-- Hardcoded projects (replace with actual projects if fetch fails) -->
-<div class="project">
-<h3>Portfolio Website</h3>
-<p>A personal developer portfolio showcasing my projects and skills using HTML, CSS, and JavaScript.</p>
-<a href="https://emersonhacker029233.github.io/Emerson_Portfolio/" target="_blank">View Repository</a>
-</div>
-<div class="project">
-<h3>Vision Care Foundation</h3>
-<p>A full website project for a foundation, built with HTML, CSS, and JavaScript, featuring donation integration.</p>
-<a href="https://github.com/Emersonhacker029233/visioncarefoundation.org" target="_blank">View Repository</a>
-</div>
-<!-- Add more project cards here -->
+<!-- Projects will be dynamically fetched from GitHub -->
 </div>
 </section>
 
@@ -91,30 +78,36 @@ function scrollAnimation() {
 window.addEventListener('scroll', scrollAnimation);
 window.addEventListener('load', scrollAnimation);
 
-// Optional: Fetch GitHub projects dynamically (may fail if CORS issues)
-// Using a hardcoded fallback ensures projects always show
-/*
+// Fetch GitHub projects dynamically
 const githubUser = 'Emersonhacker029233';
 const projectList = document.getElementById('project-list');
 
-fetch(`https://api.github.com/users/${githubUser}/repos`)
-.then(response => response.json())
-.then(data => {
-    projectList.innerHTML = ''; // clear fallback
-    data.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
-    data.forEach(repo => {
-        const project = document.createElement('div');
-        project.classList.add('project');
-        project.innerHTML = `
+async function loadProjects() {
+  try {
+    const response = await fetch(`https://api.github.com/users/${githubUser}/repos?per_page=100`);
+    const repos = await response.json();
+
+    // Sort repos: heavy projects first based on stars + forks
+    repos.sort((a, b) => (b.stargazers_count + b.forks_count) - (a.stargazers_count + a.forks_count));
+
+    repos.forEach(repo => {
+      const project = document.createElement('div');
+      project.classList.add('project');
+      const description = repo.description ? repo.description : 'No description available.';
+      project.innerHTML = `
         <h3>${repo.name}</h3>
-        <p>${repo.description ? repo.description : 'No description'}</p>
+        <p>${description}</p>
         <a href="${repo.html_url}" target="_blank">View Repository</a>
-        `;
-        projectList.appendChild(project);
+      `;
+      projectList.appendChild(project);
     });
-})
-.catch(err => console.error(err));
-*/
+  } catch (error) {
+    console.error('Error fetching repositories:', error);
+    projectList.innerHTML = '<p>Failed to load projects. Please check your internet connection or GitHub username.</p>';
+  }
+}
+
+loadProjects();
 </script>
 
 </body>
