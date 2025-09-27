@@ -1,108 +1,110 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Emerson Patrick — Portfolio</title>
-  <meta name="description" content="Emerson Patrick Kiondo — Software Developer portfolio. Interactive 3D inspired site with sections for projects and contact." />
-  <style>
-    :root{
-      --bg1:#0f172a; --bg2:#071033; --card:#0b1220; --glass: rgba(255,255,255,0.03);
-      --accent1: #7c3aed; --accent2: #06b6d4; --muted: #93c5fd;
-      color-scheme: dark;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    }
-    *{box-sizing:border-box;scroll-behavior:smooth}
-    html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));}
-    body{color:#e6eef8;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}header{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);z-index:1000}
-header h1{margin:0;font-size:20px}
-header p{margin:0;color:var(--muted);font-size:13px}
-nav a{margin-left:24px;color:inherit;text-decoration:none;font-weight:600;font-size:14px;transition:color .3s}
-nav a:hover{color:var(--accent2)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emerson Patrick Kiondo - Software Developer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Roboto',sans-serif; background:#f4f4f4; color:#333; scroll-behavior:smooth; overflow-x:hidden;}
+header {position:fixed; top:0; width:100%; background:#1a1a1a; color:#fff; padding:20px 0; text-align:center; z-index:1000;}
+header nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:700; transition:color 0.3s;}
+header nav a:hover {color:#61dafb;}
+section {padding:120px 20px; max-width:1000px; margin:auto;}
+#hero {background:#282c34; color:#fff; text-align:center; padding-top:180px; padding-bottom:100px; position:relative;}
+#hero h1 {font-size:3rem; margin-bottom:20px; opacity:0; transform:translateY(50px); transition:all 1s ease;}
+#hero p {font-size:1.2rem; opacity:0; transform:translateY(50px); transition:all 1s ease 0.3s;}
+#projects {background:#fff;}
+#projects h2 {text-align:center; margin-bottom:50px; font-size:2.5rem; opacity:0; transform:translateY(50px); transition:all 1s ease;}
+.project-list {display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:30px;}
+.project {background:#eee; padding:20px; border-radius:10px; transition:all 0.5s ease; opacity:0; transform:translateY(50px);}
+.project:hover {transform: translateY(-10px);}
+.project a {text-decoration:none; color:#1a1a1a; font-weight:700;}
+#contact {background:#282c34; color:#fff; text-align:center;}
+#contact h2 {margin-bottom:30px; opacity:0; transform:translateY(50px); transition:all 1s ease;}
+footer {text-align:center; padding:20px; background:#1a1a1a; color:#fff;}
 
-section{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:80px 20px}
-.hero h2{font-size:36px;margin:0 0 12px 0}
-.hero p{color:var(--muted);font-size:18px;max-width:640px;text-align:center;line-height:1.6}
-
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;justify-content:center}
-.chip{padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);font-weight:700;font-size:14px}
-
-.projects{max-width:960px;width:100%;display:grid;gap:20px;margin-top:30px}
-.card{padding:20px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
-.card h3{margin:0 0 8px 0}
-.card p{margin:0 0 10px 0;color:var(--muted)}
-.project-links a{margin-right:12px;color:var(--accent2);text-decoration:none;font-weight:600}
-
-.contact-info{display:grid;gap:10px;font-size:16px;color:var(--muted)}
-
-footer{padding:20px;text-align:center;color:var(--muted);font-size:13px}
-
-  </style>
+/* Scroll animation classes */
+.fade-in {opacity:1 !important; transform:translateY(0) !important;}
+</style>
 </head>
 <body>
-  <header>
-    <div>
-      <h1>Emerson Patrick Kiondo</h1>
-      <p>Software Developer</p>
-    </div>
-    <nav>
-      <a href="#hero">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>  <section id="hero" class="hero">
-    <h2>Hello, I'm Emerson</h2>
-    <p>I specialize in building robust applications and smart solutions. My work focuses on Laravel, PHP, JavaScript, and backend systems — but I also bring strong skills in front‑end and cost‑effective design.</p><div class="chips">
-  <div class="chip">Laravel</div>
-  <div class="chip">PHP</div>
-  <div class="chip">JavaScript</div>
-  <div class="chip">Docker</div>
-  <div class="chip">Git</div>
-  <div class="chip">HTML</div>
-  <div class="chip">CSS</div>
+
+<header>
+<nav>
+<a href="#hero">Home</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<section id="hero">
+<h1>Emerson Patrick Kiondo</h1>
+<p>Software Developer</p>
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+<div class="project-list" id="project-list">
+<!-- Projects will load here -->
 </div>
+</section>
 
-  </section>  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Vision Care Foundation (Landing)</h3>
-        <p>One-file responsive landing page with sliding backgrounds and donation flow.</p>
-        <div class="project-links">
-          <a href="https://github.com/Emersonhacker029233/visioncarefoundation.org" target="_blank">Repo</a>
-          <a href="https://emersonhacker029233.github.io/visioncarefoundation.org/" target="_blank">Live</a>
-        </div>
-      </div><div class="card">
-    <h3>HomeManage — Tenant System</h3>
-    <p>Web app to manage tenants, payments and property details. Built with Laravel stack.</p>
-    <div class="project-links">
-      <a href="https://github.com/Emersonhacker029233/HomeManage" target="_blank">Repo</a>
-    </div>
-  </div>
+<section id="contact">
+<h2>Contact Me</h2>
+<p>Email: emersonpkiondo79@gmail.com</p>
+<p>Phone: 0783029233 | 0741219233 | 0741129233</p>
+<p>LinkedIn: <a href="https://www.linkedin.com/in/emerson-patrick-601910219" style="color:#61dafb;">View Profile</a></p>
+</section>
 
-  <div class="card">
-    <h3>Emerson Portfolio</h3>
-    <p>This portfolio site hosted on GitHub Pages.</p>
-    <div class="project-links">
-      <a href="https://github.com/Emersonhacker029233/Emerson_Portfolio" target="_blank">Repo</a>
-      <a href="https://emersonhacker029233.github.io/Emerson_Portfolio/" target="_blank">Live</a>
-    </div>
-  </div>
+<footer>
+&copy; 2025 Emerson Patrick Kiondo
+</footer>
 
-  <!-- You can keep adding repos from your GitHub profile here -->
-</div>
+<script>
+// Scroll animation
+const animatedElements = document.querySelectorAll('#hero h1, #hero p, #projects h2, .project, #contact h2');
+function scrollAnimation() {
+  const triggerBottom = window.innerHeight * 0.85;
+  animatedElements.forEach(el => {
+    const boxTop = el.getBoundingClientRect().top;
+    if(boxTop < triggerBottom) {
+      el.classList.add('fade-in');
+    }
+  });
+}
+window.addEventListener('scroll', scrollAnimation);
+window.addEventListener('load', scrollAnimation);
 
-  </section>  <section id="contact">
-    <h2>Contact</h2>
-    <div class="contact-info">
-      <div>📞 +255 741 219 233</div>
-      <div>📞 +255 783 029 233</div>
-      <div>📧 <a href="mailto:emersonpkiondo79@gmail.com">emersonpkiondo79@gmail.com</a></div>
-      <div>📧 <a href="mailto:emersonpkiondo@gmail.com">emersonpkiondo@gmail.com</a></div>
-    </div>
-  </section>  <footer>
-    © 2025 Emerson Patrick Kiondo — Portfolio
-  </footer>
+// Fetch GitHub projects
+const githubUser = 'Emersonhacker029233';
+const projectList = document.getElementById('project-list');
+
+fetch(`https://api.github.com/users/${githubUser}/repos`)
+.then(response => response.json())
+.then(data => {
+    // Sort repos by last updated
+    data.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+    data.forEach(repo => {
+        const project = document.createElement('div');
+        project.classList.add('project');
+        project.innerHTML = `
+        <h3>${repo.name}</h3>
+        <p>${repo.description ? repo.description : 'No description'}</p>
+        <a href="${repo.html_url}" target="_blank">View Repository</a>
+        `;
+        projectList.appendChild(project);
+    });
+})
+.catch(err => console.error(err));
+
+// Smooth fade-in for hero on load
+window.addEventListener('load', () => {
+  document.querySelector('#hero h1').classList.add('fade-in');
+  document.querySelector('#hero p').classList.add('fade-in');
+});
+</script>
+
 </body>
 </html>
