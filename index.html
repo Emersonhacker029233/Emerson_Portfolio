@@ -1,414 +1,108 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Emerson Patrick — Interactive Portfolio</title>
-  <meta name="description" content="Emerson Patrick Kiondo — Interactive portfolio with WebGL scene (no images required)." />
-  <meta name="theme-color" content="#071033" />
-
-  <!-- three.js + GSAP from CDN -->
-  <script src="https://unpkg.com/three@0.155.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.155.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
-
+  <title>Emerson Patrick — Portfolio</title>
+  <meta name="description" content="Emerson Patrick Kiondo — Software Developer portfolio. Interactive 3D inspired site with sections for projects and contact." />
   <style>
     :root{
-      --bg1:#031226; --bg2:#071033; --glass: rgba(255,255,255,0.03);
-      --accent1:#7c3aed; --accent2:#06b6d4; --muted:#9fbdea;
+      --bg1:#0f172a; --bg2:#071033; --card:#0b1220; --glass: rgba(255,255,255,0.03);
+      --accent1: #7c3aed; --accent2: #06b6d4; --muted: #93c5fd;
       color-scheme: dark;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
-    html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));overflow:hidden;color:#e6eef8}
-    a{color:inherit;text-decoration:none}
-    /* full canvas */
-    #canvas-wrap{position:fixed;inset:0;z-index:0}
-    canvas{display:block;width:100%;height:100%}
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));}
+    body{color:#e6eef8;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}header{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);z-index:1000}
+header h1{margin:0;font-size:20px}
+header p{margin:0;color:var(--muted);font-size:13px}
+nav a{margin-left:24px;color:inherit;text-decoration:none;font-weight:600;font-size:14px;transition:color .3s}
+nav a:hover{color:var(--accent2)}
 
-    /* UI overlay */
-    .ui {position:relative;z-index:5;display:flex;flex-direction:column;height:100vh;pointer-events:none}
-    header{display:flex;align-items:center;justify-content:space-between;padding:28px 36px}
-    .brand{display:flex;gap:14px;align-items:center;pointer-events:auto}
-    .logo {
-      width:72px;height:72px;border-radius:14px;display:grid;place-items:center;
-      font-weight:800;font-size:22px;background:linear-gradient(135deg,var(--accent1),var(--accent2));
-      box-shadow:0 10px 30px rgba(2,6,23,0.6);color:white
-    }
-    .brand h1{margin:0;font-size:18px}
-    .brand p{margin:0;color:var(--muted);font-size:13px}
+section{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:80px 20px}
+.hero h2{font-size:36px;margin:0 0 12px 0}
+.hero p{color:var(--muted);font-size:18px;max-width:640px;text-align:center;line-height:1.6}
 
-    nav{display:flex;gap:10px;align-items:center;pointer-events:auto}
-    .nav-btn{
-      background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);
-      border:1px solid rgba(255,255,255,0.04);
-      padding:8px 12px;border-radius:10px;font-weight:700;color:inherit;cursor:pointer;font-size:13px;
-      backdrop-filter: blur(4px);
-      pointer-events:auto;
-    }
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;justify-content:center}
+.chip{padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);font-weight:700;font-size:14px}
 
-    /* center hero block */
-    .hero-wrap{flex:1;display:grid;place-items:center}
-    .hero{
-      width:min(960px,92%);max-width:960px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-      border-radius:18px;padding:28px;box-shadow:0 20px 50px rgba(2,6,23,0.65);pointer-events:auto;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .hero h2{margin:0;font-size:32px;letter-spacing:0.2px}
-    .hero p.lead{color:var(--muted);margin:10px 0 18px 0;line-height:1.5}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+.projects{max-width:960px;width:100%;display:grid;gap:20px;margin-top:30px}
+.card{padding:20px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.card h3{margin:0 0 8px 0}
+.card p{margin:0 0 10px 0;color:var(--muted)}
+.project-links a{margin-right:12px;color:var(--accent2);text-decoration:none;font-weight:600}
 
-    .actions{display:flex;gap:10px;margin-top:18px}
-    .cta{background:linear-gradient(90deg,var(--accent1),var(--accent2));padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;border:none;color:white}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;color:var(--muted);cursor:pointer}
+.contact-info{display:grid;gap:10px;font-size:16px;color:var(--muted)}
 
-    /* right column */
-    .side{
-      position:fixed;right:28px;top:120px;width:300px;pointer-events:auto;
-      border-radius:12px;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6)
-    }
-    .side h4{margin:0 0 8px 0}
-    .meta{color:var(--muted);font-size:13px;margin-bottom:8px}
-    .skill-list{display:flex;flex-wrap:wrap;gap:8px}
-    .skill{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700;font-size:13px;color:inherit}
+footer{padding:20px;text-align:center;color:var(--muted);font-size:13px}
 
-    footer{position:fixed;left:0;bottom:0;width:100%;padding:14px 28px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;pointer-events:auto}
-    .links a{margin-right:12px}
-
-    /* small screens */
-    @media (max-width:900px){
-      .side{display:none}
-      header{padding:18px}
-      .logo{width:56px;height:56px}
-      .hero h2{font-size:22px}
-    }
-
-    /* fallback if WebGL not supported */
-    .no-webgl{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg1),var(--bg2));z-index:10}
   </style>
 </head>
 <body>
-  <!-- WebGL canvas -->
-  <div id="canvas-wrap" aria-hidden="true"></div>
+  <header>
+    <div>
+      <h1>Emerson Patrick Kiondo</h1>
+      <p>Software Developer</p>
+    </div>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>  <section id="hero" class="hero">
+    <h2>Hello, I'm Emerson</h2>
+    <p>I specialize in building robust applications and smart solutions. My work focuses on Laravel, PHP, JavaScript, and backend systems — but I also bring strong skills in front‑end and cost‑effective design.</p><div class="chips">
+  <div class="chip">Laravel</div>
+  <div class="chip">PHP</div>
+  <div class="chip">JavaScript</div>
+  <div class="chip">Docker</div>
+  <div class="chip">Git</div>
+  <div class="chip">HTML</div>
+  <div class="chip">CSS</div>
+</div>
 
-  <!-- UI overlay -->
-  <div class="ui" role="application" aria-label="Portfolio">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden>EP</div>
-        <div>
-          <h1>Emerson Patrick Kiondo</h1>
-          <p>Software Developer • Freelance • Code Creation</p>
+  </section>  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>Vision Care Foundation (Landing)</h3>
+        <p>One-file responsive landing page with sliding backgrounds and donation flow.</p>
+        <div class="project-links">
+          <a href="https://github.com/Emersonhacker029233/visioncarefoundation.org" target="_blank">Repo</a>
+          <a href="https://emersonhacker029233.github.io/visioncarefoundation.org/" target="_blank">Live</a>
         </div>
-      </div>
-
-      <nav>
-        <button class="nav-btn" onclick="scrollToSection('projects')">Projects</button>
-        <button class="nav-btn" onclick="scrollToSection('about')">About</button>
-        <button class="nav-btn" onclick="scrollToSection('contact')">Contact</button>
-        <button class="nav-btn" id="copyLink">Share</button>
-      </nav>
-    </header>
-
-    <div class="hero-wrap">
-      <div class="hero" id="top-hero" role="region" aria-labelledby="hero-title">
-        <h2 id="hero-title">Hi — I'm Emerson.</h2>
-        <p class="lead">I create fast, reliable web apps and interactive experiences. This portfolio uses a live WebGL scene for a playful first impression — no images required. Scroll or use the nav to explore my projects and contact details.</p>
-
-        <div class="chips" aria-hidden>
-          <div class="chip">HTML</div>
-          <div class="chip">CSS</div>
-          <div class="chip">JavaScript</div>
-          <div class="chip">Laravel</div>
-          <div class="chip">Git</div>
-        </div>
-
-        <div class="actions">
-          <button class="cta" onclick="openRepo()">View GitHub</button>
-          <button class="ghost" onclick="downloadCV()">Download CV</button>
-        </div>
-      </div>
+      </div><div class="card">
+    <h3>HomeManage — Tenant System</h3>
+    <p>Web app to manage tenants, payments and property details. Built with Laravel stack.</p>
+    <div class="project-links">
+      <a href="https://github.com/Emersonhacker029233/HomeManage" target="_blank">Repo</a>
     </div>
   </div>
 
-  <!-- Side panel -->
-  <aside class="side" aria-label="Quick profile">
-    <h4>About</h4>
-    <div class="meta">Dar es Salaam, Tanzania • Freelance Software Developer</div>
-    <p style="margin:0 0 12px 0;color:var(--muted);font-size:14px">I build responsive web apps and single-file landing pages. I work with Laravel, Vue, and modern JS tooling.</p>
-    <div class="sep" style="height:10px"></div>
-    <strong>Skills</strong>
-    <div class="skill-list" style="margin-top:8px">
-      <div class="skill">PHP</div>
-      <div class="skill">Laravel</div>
-      <div class="skill">JavaScript</div>
-      <div class="skill">HTML/CSS</div>
-      <div class="skill">Docker</div>
+  <div class="card">
+    <h3>Emerson Portfolio</h3>
+    <p>This portfolio site hosted on GitHub Pages.</p>
+    <div class="project-links">
+      <a href="https://github.com/Emersonhacker029233/Emerson_Portfolio" target="_blank">Repo</a>
+      <a href="https://emersonhacker029233.github.io/Emerson_Portfolio/" target="_blank">Live</a>
     </div>
-    <div style="height:12px"></div>
-    <strong>Contact</strong>
-    <div style="margin-top:8px;color:var(--muted);font-size:14px">Email: <a href="mailto:emersonpkiondo79@gmail.com">emersonpkiondo79@gmail.com</a></div>
-    <div style="margin-top:6px;color:var(--muted);font-size:14px">Phone: 0783029233</div>
-  </aside>
+  </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="links">
-      <a href="https://github.com/Emersonhacker029233" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://emersonhacker029233.github.io/visioncarefoundation.org/" target="_blank" rel="noopener">VisionCare Landing</a>
-      <a href="#" onclick="openHomeManage()">HomeManage</a>
+  <!-- You can keep adding repos from your GitHub profile here -->
+</div>
+
+  </section>  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-info">
+      <div>📞 +255 741 219 233</div>
+      <div>📞 +255 783 029 233</div>
+      <div>📧 <a href="mailto:emersonpkiondo79@gmail.com">emersonpkiondo79@gmail.com</a></div>
+      <div>📧 <a href="mailto:emersonpkiondo@gmail.com">emersonpkiondo@gmail.com</a></div>
     </div>
-    <div style="opacity:0.85">Built with ✨ — No photos required</div>
+  </section>  <footer>
+    © 2025 Emerson Patrick Kiondo — Portfolio
   </footer>
-
-  <!-- Sections for scroll navigation (hidden visually but used to jump) -->
-  <div id="projects" style="position:absolute;top:150vh"></div>
-  <div id="about" style="position:absolute;top:180vh"></div>
-  <div id="contact" style="position:absolute;top:210vh"></div>
-
-  <!-- fallback message if WebGL missing -->
-  <div id="nowebgl" class="no-webgl" style="display:none">
-    <div style="text-align:center;color:var(--muted);max-width:560px;padding:20px">
-      <h3 style="margin-bottom:6px">WebGL not supported</h3>
-      <p style="margin:0">Your browser doesn't support WebGL. This site uses an interactive canvas that needs WebGL. You can still view the content — scroll manually or open the GitHub links in the footer.</p>
-    </div>
-  </div>
-
-<script>
-/* -----------------------------
-   Utility: copy link, open repo, download CV, nav
-   ----------------------------- */
-function copyToClipboard(text){
-  navigator.clipboard?.writeText(text).then(()=>alert('Link copied to clipboard')).catch(()=>prompt('Copy this link', text));
-}
-document.getElementById('copyLink').addEventListener('click', ()=> {
-  copyToClipboard(location.href);
-});
-function openRepo(){ window.open('https://github.com/Emersonhacker029233/Emerson_Portfolio','_blank') }
-function openHomeManage(){ window.open('https://github.com/Emersonhacker029233','_blank') } // adjust as needed
-function downloadCV(){
-  const content = `Emerson Patrick Kiondo\nSoftware Developer\nEmail: emersonpkiondo79@gmail.com\nPhone: 0783029233\nSkills: PHP, Laravel, JS, HTML/CSS, Git`;
-  const blob = new Blob([content], {type:'text/plain'}); const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download='Emerson_CV.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-}
-function scrollToSection(id){
-  const t = document.getElementById(id);
-  if(!t){ window.scrollTo({top:0,behavior:'smooth'}); return; }
-  // smooth page scroll by animating window scroll to location - calculate top
-  const top = id === 'projects' ? window.innerHeight * 1.4 : (id === 'about' ? window.innerHeight * 1.7 : window.innerHeight * 1.95);
-  window.scrollTo({top,behavior:'smooth'});
-}
-
-/* -----------------------------
-   Lightweight three.js scene
-   - Interactive floating objects
-   - Mouse-based parallax + drag rotate
-   - Click on objects to open project links
-   ----------------------------- */
-
-const canvasWrap = document.getElementById('canvas-wrap');
-
-// webgl check
-if(!window.WebGLRenderingContext){
-  document.getElementById('nowebgl').style.display = 'flex';
-  // still keep UI accessible
-} else {
-  initScene();
-}
-
-function initScene(){
-  // renderer
-  const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.domElement.style.display = 'block';
-  canvasWrap.appendChild(renderer.domElement);
-
-  // scene & camera
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x071033, 0.0025);
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 2000);
-  camera.position.set(0, 6, 28);
-
-  // subtle ambient & a couple directional lights
-  const ambient = new THREE.AmbientLight(0xffffff, 0.45);
-  scene.add(ambient);
-  const key = new THREE.DirectionalLight(0xffffff, 0.8);
-  key.position.set(5,10,7);
-  scene.add(key);
-
-  // create a colorful group of objects (no textures)
-  const group = new THREE.Group();
-  scene.add(group);
-
-  // helper to make stylized materials
-  function niceMat(){
-    return new THREE.MeshStandardMaterial({roughness:0.4, metalness:0.1, envMapIntensity:0.6});
-  }
-
-  // create several floating shapes with different sizes
-  const shapes = [];
-  const geomList = [
-    new THREE.TorusGeometry(3.2,0.7,24,60),
-    new THREE.BoxGeometry(3.2,3.2,3.2),
-    new THREE.SphereGeometry(2.4,32,32),
-    new THREE.ConeGeometry(2.6,5,32),
-  ];
-
-  const colors = [0x7c3aed,0x06b6d4,0xff7ab6,0xffb347,0x5eead4];
-
-  for(let i=0;i<9;i++){
-    const g = geomList[i % geomList.length].clone();
-    const m = niceMat();
-    m.color = new THREE.Color(colors[i % colors.length]);
-    const mesh = new THREE.Mesh(g,m);
-    mesh.position.x = (Math.random()*2-1)*12;
-    mesh.position.y = (Math.random()*2-1)*6;
-    mesh.position.z = (Math.random()*2-1)*12;
-    mesh.rotation.set(Math.random()*1.6,Math.random()*1.6,Math.random()*1.6);
-    mesh.userData = { id: i };
-    mesh.scale.setScalar(0.9 + Math.random()*1.2);
-    group.add(mesh);
-    shapes.push(mesh);
-  }
-
-  // create a floating "EP" 2D canvas overlay (SVG-like) made of text geometry would be heavy.
-  // Instead create a ring with EP letters painted using CSS overlay in UI (logo already present).
-
-  // subtle animation with GSAP
-  shapes.forEach((s, idx) => {
-    gsap.to(s.rotation, { y: "+=" + (0.5 + Math.random()*1), duration: 8 + Math.random()*6, ease: "none", repeat:-1 });
-    gsap.to(s.position, { y: "+=" + (0.6 + Math.random()*1.6), duration: 4 + Math.random()*3, yoyo:true, repeat:-1, ease:"sine.inOut", delay: idx*0.15 });
-  });
-
-  // raycaster for clicks
-  const ray = new THREE.Raycaster();
-  const mouse = new THREE.Vector2();
-  let pointerDown = false, lastPointer = {x:0,y:0};
-
-  function onPointerMove(e){
-    const x = (e.clientX / window.innerWidth) * 2 - 1;
-    const y = -(e.clientY / window.innerHeight) * 2 + 1;
-    mouse.x = x; mouse.y = y;
-    // parallax camera
-    gsap.to(camera.position, { x: x*6, y: (1+y)*4 + 4, duration: 1.2, ease:"power2.out" });
-  }
-
-  function onPointerDown(e){
-    pointerDown = true;
-    lastPointer.x = e.clientX; lastPointer.y = e.clientY;
-  }
-
-  function onPointerUp(e){
-    pointerDown = false;
-    // detect clicks on objects
-    ray.setFromCamera(mouse, camera);
-    const hits = ray.intersectObjects(shapes, false);
-    if(hits.length){
-      const hit = hits[0].object;
-      handleObjectClick(hit.userData.id);
-    }
-  }
-
-  function handleObjectClick(id){
-    // map id to action (open project or repo)
-    const mapping = {
-      0: 'https://emersonhacker029233.github.io/visioncarefoundation.org/',
-      1: 'https://github.com/Emersonhacker029233/visioncarefoundation.org',
-      2: 'https://github.com/Emersonhacker029233', // placeholder to HomeManage repo
-      3: 'https://github.com/Emersonhacker029233/Emerson_Portfolio'
-    };
-    const url = mapping[id] || 'https://github.com/Emersonhacker029233';
-    window.open(url,'_blank');
-  }
-
-  // subtle rotation group animation
-  gsap.to(group.rotation, { y: "+=0.9", duration: 35, repeat:-1, ease: "none" });
-
-  // render loop
-  function animate(){
-    requestAnimationFrame(animate);
-    // rotate each shape a bit each frame
-    shapes.forEach((s,i)=>{
-      s.rotation.x += 0.002 + i*0.0005;
-      s.rotation.z += 0.001 + i*0.0003;
-    });
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  // interaction listeners
-  window.addEventListener('pointermove', onPointerMove);
-  window.addEventListener('pointerdown', onPointerDown);
-  window.addEventListener('pointerup', onPointerUp);
-
-  // resize
-  window.addEventListener('resize', ()=>{
-    const w = window.innerWidth, h = window.innerHeight;
-    renderer.setSize(w,h);
-    camera.aspect = w/h;
-    camera.updateProjectionMatrix();
-  });
-
-  // accessibility: allow keyboard to focus and activate main CTA
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter') openRepo();
-    if(e.key === 's') copyToClipboard(location.href);
-  });
-}
-
-/* -----------------------------
-   Page content injection for projects/sections (no images)
-   This adds accessible, SEO-friendly content when user scrolls down
-   ----------------------------- */
-(function injectLongContent(){
-  const body = document.body;
-  const sections = [
-    {id:'projects', title:'Featured Projects', content:
-      `<article style="max-width:920px;margin:48px auto;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);border-radius:12px">
-        <h3>Vision Care Foundation — Landing</h3>
-        <p style="color:var(--muted)">A single-file responsive landing page with sliding background images and donation flow. Repo + live demo available.</p>
-        <p style="margin-top:12px"><a href="https://github.com/Emersonhacker029233/visioncarefoundation.org" target="_blank">View Repo</a> • <a href="https://emersonhacker029233.github.io/visioncarefoundation.org/" target="_blank">Live site</a></p>
-      </article>`
-    },
-    {id:'projects2', title:'HomeManage — Tenant System', content:
-      `<article style="max-width:920px;margin:28px auto;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);border-radius:12px">
-        <h3>HomeManage</h3>
-        <p style="color:var(--muted)">Laravel-based tenant management system for tracking tenants, payments and property data. Customize for local regulations like NHIF & PSSSF.</p>
-        <p style="margin-top:12px"><a href="https://github.com/Emersonhacker029233" target="_blank">Repository</a></p>
-      </article>`
-    },
-    {id:'about', title:'About', content:
-      `<section style="max-width:920px;margin:28px auto;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);border-radius:12px">
-        <h3>About Emerson</h3>
-        <p style="color:var(--muted)">I am a freelance software developer based in Dar es Salaam. I build web apps, single-file sites, and backend systems using PHP, Laravel, and modern JavaScript. I prefer clean UI, performance-first pages, and solutions that are easy to maintain.</p>
-      </section>`
-    },
-    {id:'contact', title:'Contact', content:
-      `<section style="max-width:920px;margin:28px auto 120px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);border-radius:12px">
-        <h3>Contact</h3>
-        <p style="color:var(--muted)">Email: <a href="mailto:emersonpkiondo79@gmail.com">emersonpkiondo79@gmail.com</a></p>
-        <p style="color:var(--muted)">Phone: 0783029233</p>
-        <p style="margin-top:12px;color:var(--muted)">If you'd like to work together, email me or open the GitHub repo to see my projects and demos.</p>
-      </section>`
-    }
-  ];
-
-  // append these sections at the end of the page so they become visible when users scroll
-  const container = document.createElement('div');
-  container.style.position = 'relative';
-  container.style.zIndex = 3;
-  container.style.paddingTop = '120vh'; // allow room for canvas + hero before these sections appear
-  container.style.pointerEvents = 'auto';
-  sections.forEach(s=>{
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = s.content;
-    container.appendChild(wrapper);
-  });
-  document.body.appendChild(container);
-})();
-
-</script>
 </body>
 </html>
