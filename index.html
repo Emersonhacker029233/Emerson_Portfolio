@@ -1,275 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emerson Patrick Kiondo - Full Stack Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Emerson Patrick — Portfolio</title>
+  <meta name="description" content="Emerson Patrick Kiondo — Software Developer portfolio. Lightweight single-file site with no external images." />
   <style>
-    /* General Styles */
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      color: #fff;
-      overflow-x: hidden;
+    :root{
+      --bg1:#0f172a; --bg2:#071033; --card:#0b1220; --glass: rgba(255,255,255,0.03);
+      --accent1: #7c3aed; --accent2: #06b6d4; --muted: #93c5fd;
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));}
+    body{color:#e6eef8;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:40px}/* animated gradient backdrop */
+.bg-anim{position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 300px at 10% 20%, rgba(124,58,237,0.15), transparent 10%), radial-gradient(500px 300px at 90% 80%, rgba(6,182,212,0.12), transparent 12%);filter:blur(30px);animation:move 12s linear infinite}
+@keyframes move{0%{transform:translate(0,0)}50%{transform:translate(6%,4%)}100%{transform:translate(0,0)}}
 
-    /* Background Video */
-    #bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
+.container{max-width:980px;margin:0 auto}
+header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:28px}
+.brand{display:flex;gap:14px;align-items:center}
 
-    /* Content Container */
-    .content-container {
-      position: relative;
-      z-index: 1;
-      background: rgba(0, 0, 0, 0.5);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+/* avatar blob */
+.avatar{width:84px;height:84px;border-radius:18px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:700;color:white;font-size:22px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.brand h1{margin:0;font-size:20px;letter-spacing:0.4px}
+.brand p{margin:0;color:var(--muted);font-size:13px}
 
-    /* Header */
-    header {
-      margin-bottom: 40px;
-    }
+.controls{display:flex;gap:8px}
+.btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:inherit;font-weight:600;cursor:pointer}
 
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
+main{display:grid;grid-template-columns:1fr 340px;gap:22px}
 
-    header p {
-      font-size: 1.2rem;
-      margin: 0;
-    }
+/* left */
+.hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.hero h2{margin:0 0 8px 0;font-size:28px}
+.hero p.lead{margin:0 0 18px 0;color:var(--muted);line-height:1.5}
 
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 20px 0 0;
-    }
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,0.03)}
 
-    nav ul li {
-      display: inline;
-      margin: 0 15px;
-    }
+.projects{display:grid;gap:12px}
+.card{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03)}
+.card h3{margin:0 0 6px 0}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.project-links{margin-top:10px;display:flex;gap:10px}
+.link{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;font-weight:700;border:1px solid rgba(255,255,255,0.04);background:transparent;text-decoration:none;color:inherit}
 
-    nav ul li a {
-      color: #fff;
-      font-weight: 600;
-      text-decoration: none;
-    }
+/* right sidebar */
+aside{position:sticky;top:28px}
+.profile{padding:18px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+.profile h4{margin:0 0 6px 0}
+.meta{color:var(--muted);font-size:13px;margin-bottom:12px}
+.skill-list{display:flex;flex-wrap:wrap;gap:8px}
+.skill{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700;font-size:13px}
 
-    /* Sections */
-    section {
-      padding: 60px 0;
-    }
+footer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center}
 
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+/* small screens */
+@media (max-width:880px){main{grid-template-columns:1fr;}.avatar{width:68px;height:68px}.controls{display:none}.container{padding:0 14px}}
 
-    .about p {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 20px;
-    }
+/* subtle floating animation */
+.float{animation:float 6s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
 
-    .skills ul {
-      list-style: none;
-      padding: 0;
-      text-align: center;
-    }
+/* pretty separators */
+.sep{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.02),transparent);margin:14px 0;border-radius:2px}
 
-    .skills ul li {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 5px;
-      text-align: center;
-    }
-
-    .contact form {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .contact input, .contact textarea {
-      margin-bottom: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
-
-    .contact button {
-      align-self: center;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    footer .social-links a {
-      margin: 0 10px;
-      color: #fff;
-      text-decoration: none;
-    }
   </style>
 </head>
 <body>
-  <!-- Background Video -->
-  <video autoplay muted loop id="bg-video">
-    <source src="assets/videos/tech.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <!-- Content Container -->
-  <div class="content-container">
+  <div class="bg-anim" aria-hidden></div>
+  <div class="container">
     <header>
-      <div class="container">
-        <h1>Emerson Patrick Kiondo</h1>
-        <p>Full Stack Developer</p>
-        <nav>
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li> <!-- Link to contact.html -->
-          </ul>
-        </nav>
-      </div>
-    </header>
-
-    <section id="about" class="about">
-      <div class="container">
-        <h2>About Me</h2>
-        <p>
-          Hi, I'm Emerson Patrick Kiondo, a passionate Full Stack Developer with expertise in building scalable web applications. 
-          I specialize in both front-end and back-end technologies, including React, Node.js, and MongoDB. 
-          I love solving complex problems and creating user-friendly experiences.
-        </p>
-        <a href="assets/EMERSON CV.pdf" class="btn" download>Download Resume</a>
-      </div>
-    </section>
-
-    <section id="skills" class="skills">
-      <div class="container">
-        <h2>Skills</h2>
-        <ul>
-          <li>HTML, CSS, JavaScript</li>
-          <li>React, Angular</li>
-          <li>Node.js, Express</li>
-          <li>MongoDB, MySQL</li>
-          <li>Git, Docker, AWS</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="projects" class="projects">
-      <div class="container">
-        <h2>Projects</h2>
-        <div class="project-grid">
-          <div class="project-card">
-            <h3>Bulk SMS System</h3>
-            <p>A fully functional Bulk SMS platform built with React and Node.js.</p>
-            <a href="https://sms.hekima.pro/" class="btn" target="_blank">View Project</a>
-          </div>
-          <div class="project-card">
-            <h3>Task Management App</h3>
-            <p>A task management tool built with Angular and Firebase.</p>
-            <a href="https://github.com/yourusername/task-management-app" class="btn" target="_blank">View Project</a>
-          </div>
-          <div class="project-card">
-            <h3>Portfolio Website</h3>
-            <p>This very portfolio website built with HTML, CSS, and JavaScript.</p>
-            <a href="https://github.com/yourusername/portfolio-website" class="btn" target="_blank">View Project</a>
-          </div>
+      <div class="brand">
+        <div class="avatar float" title="EPK">EP</div>
+        <div>
+          <h1>Emerson Patrick Kiondo</h1>
+          <p>Software Developer • Freelance • Code Creation</p>
         </div>
       </div>
-    </section>
-
-    <section id="contact" class="contact">
-      <div class="container">
-        <h2>Contact Me</h2>
-        <form id="contact-form">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" placeholder="Your Message" required></textarea>
-          <button type="submit" class="btn">Send Message</button>
-        </form>
+      <div class="controls">
+        <button class="btn" id="download">Download CV</button>
+        <a class="btn" id="shareLink">Copy Link</a>
       </div>
-    </section>
+    </header><main>
+  <section class="hero">
+    <h2>Hi — I'm Emerson.</h2>
+    <p class="lead">I build clean, reliable web apps and tools. This single-file portfolio is designed to be fast, privacy-friendly, and look great without any uploaded images — everything is CSS & SVG based.</p>
 
-    <footer>
-      <div class="container">
-        <p>&copy; 2025 Emerson Patrick Kiondo. All rights reserved.</p>
-        <div class="social-links">
-          <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-          <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+    <div class="chips" aria-hidden>
+      <div class="chip">HTML</div>
+      <div class="chip">CSS</div>
+      <div class="chip">JavaScript</div>
+      <div class="chip">Laravel</div>
+      <div class="chip">Git</div>
+    </div>
+
+    <div class="sep"></div>
+
+    <h3>Featured Projects</h3>
+    <div class="projects">
+      <article class="card">
+        <h3>Vision Care Foundation (Landing)</h3>
+        <p>One-file responsive landing page with sliding backgrounds and donation flow.</p>
+        <div class="project-links">
+          <a class="link" href="https://github.com/Emersonhacker029233/visioncarefoundation.org" target="_blank" rel="noopener">View Repo</a>
+          <a class="link" href="https://emersonhacker029233.github.io/visioncarefoundation.org/" target="_blank" rel="noopener">Live Site</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>HomeManage — Tenant System</h3>
+        <p>Web app to manage tenants, payments and property details. Built with Laravel stack.</p>
+        <div class="project-links">
+          <a class="link" href="#">Repo</a>
+          <a class="link" href="#">Demo</a>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <aside>
+    <div class="profile">
+      <h4>About</h4>
+      <div class="meta">Dar es Salaam, Tanzania • Freelance Software Developer</div>
+      <p style="margin:0 0 12px 0;color:var(--muted);font-size:14px">I focus on small teams and solo projects: clean UI, responsive sites, and Laravel/Vue integrations. I also build mobile-friendly single-file sites for fast sharing.</p>
+
+      <div class="sep"></div>
+
+      <div>
+        <strong>Skills</strong>
+        <div class="skill-list" style="margin-top:8px">
+          <div class="skill">PHP</div>
+          <div class="skill">Laravel</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">HTML/CSS</div>
+          <div class="skill">Docker</div>
         </div>
       </div>
-    </footer>
-  </div>
 
-  <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
+      <div class="sep"></div>
+
+      <div>
+        <strong>Contact</strong>
+        <div style="margin-top:8px;color:var(--muted);font-size:14px">Email: <a href="mailto:emersonpkiondo79@gmail.com" style="color:inherit;text-decoration:underline">emersonpkiondo79@gmail.com</a></div>
+        <div style="margin-top:6px;color:var(--muted);font-size:14px">Phone: 0783029233</div>
+      </div>
+    </div>
+
+    <div style="height:18px"></div>
+    <div class="card" style="padding:16px;margin-top:12px">
+      <h4>Quick actions</h4>
+      <p style="margin:8px 0 12px 0;color:var(--muted)">These will help while you don't have images uploaded.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="goEdit()">Edit on GitHub</button>
+        <button class="btn" onclick="openRepo()">Open Repo</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Built with ✨ — No images required. Update the text in <code>index.html</code> in your repo root to change content.
+</footer>
+
+  </div>  <script>
+    // small helpers
+    function copyToClipboard(text){navigator.clipboard?.writeText(text).then(()=>alert('Link copied to clipboard'))}
+    document.getElementById('shareLink').addEventListener('click',()=>{
+      copyToClipboard(location.href);
     });
 
-    // Form submission handling
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert('Thank you for your message! I will get back to you soon.');
-      this.reset();
+    document.getElementById('download').addEventListener('click',()=>{
+      // small generated CV (text) downloaded as plain txt
+      const content = `Emerson Patrick Kiondo\nSoftware Developer\nEmail: emersonpkiondo79@gmail.com\nPhone: 0783029233\n\nSkills: PHP, Laravel, JS, HTML/CSS, Git`;
+      const blob = new Blob([content],{type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='Emerson_CV.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     });
-  </script>
-</body>
+
+    function goEdit(){window.open('https://github.com/Emersonhacker029233/Emerson_Portfolio/edit/main/index.html','_blank')}
+    function openRepo(){window.open('https://github.com/Emersonhacker029233/Emerson_Portfolio','_blank')}
+
+    // if loaded from gh pages and the repo is the site root, copy the canonical link so users can share the github pages URL
+    (function setCanonical(){
+      const meta = document.createElement('meta'); meta.name='og:url'; meta.content=location.href; document.head.appendChild(meta);
+    })();
+  </script></body>
 </html>
